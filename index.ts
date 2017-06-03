@@ -8,6 +8,7 @@ interface PathResult<T> {
  * Create a deep path builder for a given type
  */
 export function path<T>() {
+    /**Returns a function that gets the next path builder */
     function subpath<T, TKey extends keyof T>(parent: string[], key: TKey): PathResult<T[TKey]> {
         const newPath = [...parent, key];
         const x = (<TSubKey extends keyof T[TKey]>(subkey: TSubKey) => subpath<T[TKey], TSubKey>(newPath, subkey)) as PathResult<T[TKey]>;
